@@ -1,49 +1,52 @@
 <template>
-  <el-dialog v-model="state.show" :title="props.title" width="750px" :close-on-click-modal="false" @close="close()">
-    <section class="m-4">
-      <section v-for="item in props.list" :key="item" class="mb-6">
-        <p class="font-bold text-lg">{{ item.name }}</p>
-        <p class="text-sm mt-2 text-opacity-60 text-black">{{ item.desc }}</p>
+  <el-dialog v-model="state.show" :title="props.title" width="550px" :close-on-click-modal="false" @close="close()">
+    <section class="mx-8 py-4">
+      <section class="px-8">
+        <section class="flex mb-5">
+          <span class="min-w-28 leading-8">上传待处理数据</span>
+          <el-upload class="flex-1" v-model:file-list="fileList" :limit="1" :auto-upload="false">
+            <el-button type="primary">选择文件</el-button>
+          </el-upload>
+        </section>
+        <section class="flex items-center mb-5">
+          <span class="min-w-28">选择数据类型</span>
+          <el-radio-group v-model="state.datatype">
+            <el-radio-button :value="1">网络资产</el-radio-button>
+            <el-radio-button :value="2">开源情报</el-radio-button>
+            <el-radio-button :value="3">社工情报</el-radio-button>
+          </el-radio-group>
+        </section>
+        <section class="flex justify-end">
+          <el-button type="success" plain>开始处理</el-button>
+        </section>
       </section>
-      <section>
-        <el-input v-model="state.query" placeholder="create xxx" size="large"></el-input>
+      <Separator class="my-6" />
+      <section class="px-8">
+        <section class="flex items-center mb-5">
+          <span class="min-w-28">数据状态</span>
+          <p>等待上传</p>
+        </section>
+        <section class="flex justify-end">
+          <el-button type="success" plain>下载数据</el-button>
+        </section>
       </section>
     </section>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button type="primary" @click="confirm">确定</el-button>
-      </span>
-    </template>
   </el-dialog>
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
-import { useToast } from '@/components/ui/toast/use-toast'
-import { confirmPostMessage } from '../../hook'
-const { toast } = useToast()
+import { reactive, ref } from 'vue'
+import { Separator } from '@/components/ui/separator'
 const state = reactive({
-  query: '',
+  datatype: 1,
   show: true
 })
+const fileList = ref([])
 const emits = defineEmits(['close'])
 const props: any = defineProps({
   title: String,
-  list: []
 })
 
-const confirm = async () => {
-  if (!state.query) {
-    toast({
-      title: '请输入实体或关系语句！',
-      duration: 1500,
-      variant: 'destructive',
-    });
-    return
-  }
-  confirmPostMessage(state.query)
-  close(true)
-}
 const close = (refresh = false) => {
   emits('close', refresh)
 }

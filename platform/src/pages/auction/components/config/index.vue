@@ -9,43 +9,43 @@ const clickAction = (type = 1) => {
       title: '数据写入',
       list: [{
         name: '创建实体语句模板',
-        desc: 'CREATE (n1:起始节点类型 {value: "起始节点值"}), (n2:终止节点类型 {value: "终止节点值"}), (n1)-[:测试边类型]->(n2)'
+        desc: 'CREATE (n:节点类型 {value: "节点的值"}) RETURN n'
       }, {
         name: '创建关系语句模板',
-        desc: 'CREATE (n1:起始节点类型 {value: "起始节点值"}), (n2:终止节点类型 {value: "终止节点值"}), (n1)-[:测试边类型]->(n2)'
+        desc: 'CREATE (n1:起始节点类型 {value: "起始节点的值"}), (n2:终止节点类型 {value: "终止节点的值"}), (n1)-[r:关系类型]->(n2) RETURN n1, r, n2'
       }]
     },
     2: {
       title: '数据更新',
       list: [{
         name: '更新实体语句模板',
-        desc: 'CREATE (n1:起始节点类型 {value: "起始节点值"}), (n2:终止节点类型 {value: "终止节点值"}), (n1)-[:测试边类型]->(n2)'
+        desc: 'MATCH (n:节点类型 {value: "节点的旧值"}) SET n.value = "节点的新值" RETURN n'
       }, {
         name: '更新关系语句模板',
-        desc: 'CREATE (n1:起始节点类型 {value: "起始节点值"}), (n2:终止节点类型 {value: "终止节点值"}), (n1)-[:测试边类型]->(n2)'
+        desc: 'MATCH (n1:起始节点类型 {value: "起始节点的值"})-[r:旧关系类型]->(n2:终止节点类型 {value: "终止节点的值"}) SET r:新关系类型 RETURN n1, r, n2'
       }]
     },
     5: {
       title: '普通查询',
       list: [{
         name: '查询实体语句模板',
-        desc: 'CREATE (n1:起始节点类型 {value: "起始节点值"}), (n2:终止节点类型 {value: "终止节点值"}), (n1)-[:测试边类型]->(n2)'
+        desc: 'MATCH (n:节点类型 {value: "节点的值"}) RETURN n LIMIT 25'
       }, {
         name: '查询关系语句模板',
-        desc: 'CREATE (n1:起始节点类型 {value: "起始节点值"}), (n2:终止节点类型 {value: "终止节点值"}), (n1)-[:测试边类型]->(n2)'
+        desc: 'MATCH (n1:起始节点类型 {value: "起始节点的值"})-[r:关系类型]->(n2:终止节点类型 {value: "终止节点的值"}) RETURN n1, r, n2 LIMIT 25'
       }]
     },
     6: {
       title: '专用查询',
       list: [{
         name: '地区查询模板',
-        desc: 'MATCH (a) where a.value = "台南市" return a'
+        desc: 'MATCH (a) WHERE a.value = "中国台湾" RETURN a'
       }, {
         name: '组织机构查询模板',
-        desc: 'MATCH (a) where a.value = "青岛赤橙自控软件有限公司" return a'
+        desc: 'MATCH (a) WHERE a.value = "佳福股份有限公司" RETURN a'
       }, {
         name: '行业查询模板',
-        desc: 'MATCH (a) where a.value = "政务" return a'
+        desc: 'MATCH (a) WHERE a.value = "教育" RETURN a'
       }]
     }
   }
@@ -85,7 +85,7 @@ const uploadAction = (type: number) => {
     </section>
   </section>
   <CreateDialog v-if="show" :list="data.list" :title="data.title" @close="show = false" />
-  <UploadDialog v-if="uploadDialog.show" :type="uploadDialog.type" :title="uploadDialog.title" />
+  <UploadDialog v-if="uploadDialog.show" :type="uploadDialog.type" :title="uploadDialog.title" @close="uploadDialog.show = false"/>
 </template>
 
 <style lang="less">

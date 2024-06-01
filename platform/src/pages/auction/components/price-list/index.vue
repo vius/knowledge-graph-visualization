@@ -14,23 +14,51 @@
           </TabsTrigger>
         </TabsList>
       </Tabs>
-      <Button @click="check" class="w-24 h-8 bg-[#008FFF] rounded-[3px]">本体图查看</Button>
+      <Button @click="checkImage" class="w-24 h-8 bg-[#008FFF] rounded-[3px]">本体图查看</Button>
     </section>
     <section class="flex justify-between items-center">
-      <Button @click="check" class="w-24 h-8 bg-[#008FFF] rounded-[3px]">图谱标签</Button>
-      <Button @click="check" class="w-24 h-8 bg-[#008FFF] rounded-[3px]">图谱统计</Button>
-      <Button @click="check" class="w-24 h-8 bg-[#008FFF] rounded-[3px]">数据可视化</Button>
+      <Button @click="showLabels" class="w-24 h-8 bg-[#008FFF] rounded-[3px]">图谱标签</Button>
+      <Button @click="graphSummary" class="w-24 h-8 bg-[#008FFF] rounded-[3px]">图谱统计</Button>
+      <Button @click="data2Vision" class="w-24 h-8 bg-[#008FFF] rounded-[3px]">数据可视化</Button>
     </section>
   </section>
+  <el-dialog v-model="state.imagePreview">
+    <img :src="imageUrl" />
+  </el-dialog>
 </template>
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
-const check = () => { }
+import Wlzc from '@/assets/wlzc.jpg'
+import Sgqb from '@/assets/sgqb.jpg'
+import Kyqb from '@/assets/kyqb.jpg'
+import { showLabels, data2Vision, confirmPostMessage } from '../../hook'
+const graphSummary = () => {
+  const query = `MATCH (g:geo_org) WITH count(g) AS 组织机构
+MATCH (n) WITH 组织机构, count(n) AS 网络空间要素
+MATCH ()-[r]->() WITH 组织机构, 网络空间要素, count(r) AS 跨域关联关系
+MATCH (c:country) WITH 组织机构, 网络空间要素, 跨域关联关系, count(c) AS 地区
+MATCH (h:hy) RETURN 组织机构, 网络空间要素, 跨域关联关系, 地区, count(h) AS 行业;`
+confirmPostMessage(query)
+}
 const state = reactive({
-  type: "1"
+  type: "1",
+  imagePreview: false,
 })
+const imageUrl = computed(() => {
+  const { type } = state
+  if (type === '1') {
+    return Wlzc
+  }
+  if (type === '2') {
+    return Kyqb
+  }
+  return Sgqb
+})
+const checkImage = () => {
+  state.imagePreview = true
+}
 </script>
 
 <style scoped>
