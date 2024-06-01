@@ -15,9 +15,9 @@
             <img src="@/assets/auction/Frame1.png" alt="">
             <p>知识图谱管理</p>
           </template>
-          <Config @updateDataset="updateDataset"></Config>
+          <Config></Config>
         </BlockItem>
-        <Agents class="row-span-12 col-span-17" :class="{agentHidden: !showIframe}"></Agents>
+        <Agents class="row-span-12 col-span-17"></Agents>
         <BlockItem class="row-span-3 col-span-7">
           <template #header>
             <img src="@/assets/auction/Frame2.png" alt="">
@@ -50,7 +50,6 @@
 import { EnterFullScreenIcon, ExitFullScreenIcon } from '@radix-icons/vue'
 import { useFullscreen } from '@vueuse/core'
 import dayjs from 'dayjs'
-import { ref } from 'vue'
 import BlockItem from './block.vue'
 import Agents from './components/agents/index.vue'
 import Availability from './components/availability/index.vue'
@@ -58,21 +57,6 @@ import Bidders from './components/bidders/index.vue'
 import Config from './components/config/index.vue'
 import PriceList from './components/price-list/index.vue'
 
-const dataset = ref(null)
-const updateDataset = (val: any) => {
-  dataset.value = val
-}
-const showIframe = ref(false)
-setTimeout(()=>{
-  confirmPostMessage()
-},100000)
-const confirmPostMessage = () => {
-  showIframe.value = true
-  window.postMessage({
-    query: 'show',
-    type: 'set-query'
-  }, "*")
-}
 const { isFullscreen, enter, exit } = useFullscreen()
 const fullScreen = () => {
   if (isFullscreen.value) {
