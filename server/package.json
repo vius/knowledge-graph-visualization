@@ -1,0 +1,31 @@
+{
+  "name": "data-trading-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "pm2 start src/app.js --watch --name data-trading-server && pnpm log",
+    "start": "pm2 start src/app.js --name data-trading-server",
+    "stop": "pm2 stop data-trading-server",
+    "delete": "pm2 delete data-trading-server",
+    "log": "pm2 logs data-trading-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "busboy": "^1.6.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.19.2",
+    "express-http-proxy": "^2.0.0",
+    "express-jwt": "^8.4.1",
+    "express-session": "^1.18.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "keyv": "^4.5.4",
+    "keyv-file": "^0.3.1",
+    "pm2": "^5.3.1",
+    "session-file-store": "^1.5.0"
+  }
+}

@@ -1,43 +1,55 @@
 <template>
-  <section class="h-full w-full p-2 overflow-auto pt-10">
-    <table class="w-full flex-1 text-sm text-left table-auto">
-      <thead class="">
-        <tr>
-          <th scope="col" class="px-3 py-1">
-            网络资产实体标签
-          </th>
-          <th scope="col" class="px-3 py-1">
-            开源情报实体标签
-          </th>
-          <th scope="col" class="px-3 py-1">
-            社工情报实体标签
-          </th>
-          <th scope="col" class="px-3 py-1">
-            关系标签
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="" v-for="item in  state.list " :key="item.id">
-          <th scope="row" class="px-3 font-light">
-            {{ item.networkAssetEntities }}
-          </th>
-          <td scope="row" class="px-3">
-            {{ item.osintEntities }}
-          </td>
-          <td scope="row" class="px-3">
-            {{ item.socialEngineeringEntities }}
-          </td>
-          <td scope="row" class="px-3">
-            {{ item.relationshipTags }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <section class="h-full w-full p-2 overflow-auto pt-10 overflow-hidden flex flex-col">
+    <section class="flex-1 overflow-auto">
+      <table class="w-full text-sm text-left table-auto ">
+        <thead class="">
+          <tr>
+            <th scope="col" class="px-3 py-1">
+              网络资产实体标签
+            </th>
+            <th scope="col" class="px-3 py-1">
+              开源情报实体标签
+            </th>
+            <th scope="col" class="px-3 py-1">
+              社工情报实体标签
+            </th>
+            <th scope="col" class="px-3 py-1">
+              关系标签
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="" v-for="item in  state.list " :key="item.id">
+            <th scope="row" class="px-3 font-light">
+              {{ item.networkAssetEntities }}
+            </th>
+            <td scope="row" class="px-3">
+              {{ item.osintEntities }}
+            </td>
+            <td scope="row" class="px-3">
+              {{ item.socialEngineeringEntities }}
+            </td>
+            <td scope="row" class="px-3">
+              {{ item.relationshipTags }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="min-h-12 border-t border-gray-300 flex justify-end items-center">
+      <el-button type="primary" @click="check(1)">查看全部实体类型</el-button>
+      <el-button type="primary" @click="check(2)">查看全部实体关系</el-button>
+    </section>
   </section>
 </template>
 <script setup lang="ts">
 import { reactive } from 'vue';
+import { confirmPostMessage } from '../../hook'
+const queryMap = ['CALL db.labels() YIELD label RETURN label', 'CALL db.relationshipTypes() YIELD relationshipType RETURN relationshipType']
+const check = (type: number) => {
+  const query = queryMap[type - 1]
+  confirmPostMessage(query)
+}
 const state: any = reactive({
   list: []
 })

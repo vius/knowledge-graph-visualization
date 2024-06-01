@@ -9,6 +9,7 @@ export const state: any = reactive({
 
 export const confirmPostMessage = (query: string) => {
   state.showNeo = true
+  state.showUpLayer = false
   const target: any = document.querySelector('#neo-iframe')
   target?.contentWindow.postMessage({
     query,
