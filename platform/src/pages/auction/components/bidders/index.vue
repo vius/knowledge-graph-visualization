@@ -29,7 +29,7 @@ const dataArray = [{
   query: 'MATCH (a:device)-[r]-(b:os) RETURN a, r, b limit 25'
 }, {
   title: '内容类要素',
-  query: 'MATCH (a:title)-[r]-(b) WHERE a.value CONTAINS 'html' and size(a.value) > 100 RETURN a, r, b LIMIT 50'
+  query: `MATCH (a:title)-[r]-(b) WHERE a.value CONTAINS 'html' and size(a.value) > 100 RETURN a, r, b LIMIT 50`
 }, {
   title: '社工类要素',
   query: `MATCH (a:id)-[r]-(b) WHERE 'email' IN labels(b) OR 'qq' IN labels(b) RETURN a, r, b LIMIT 25`
