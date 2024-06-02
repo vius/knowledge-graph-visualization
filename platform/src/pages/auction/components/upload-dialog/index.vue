@@ -8,7 +8,7 @@
             <el-button type="primary">选择文件</el-button>
           </el-upload>
         </section>
-        <section class="flex items-center mb-5">
+        <section class="flex items-center mb-6">
           <span class="min-w-28">选择数据类型</span>
           <el-radio-group v-model="state.datatype">
             <el-radio-button :value="1">网络资产</el-radio-button>
@@ -18,6 +18,7 @@
         </section>
         <section class="flex justify-end">
           <el-button type="success" plain>开始处理</el-button>
+          <el-button type="success" plain v-if="props.type === 1">开始重构</el-button>
         </section>
       </section>
       <Separator class="my-6" />
@@ -45,6 +46,7 @@ const fileList = ref([])
 const emits = defineEmits(['close'])
 const props: any = defineProps({
   title: String,
+  type: Number
 })
 
 const close = (refresh = false) => {

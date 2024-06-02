@@ -1,8 +1,8 @@
 <template>
   <section class="relative">
     <section class="h-full w-full bg-[#111D34] overflow-auto flex justify-around items-center" :class="{ agentHidden: !state.showNeo }">
-      <!-- <iframe src="http://112.31.213.24:7474/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe> -->
-      <iframe src="http://localhost:8080/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe>
+      <iframe src="http://112.31.213.24:8001/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe>
+      <!-- <iframe src="http://localhost:8080/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe> -->
     </section>
     <section class="h-full w-full bg-gray-50 absolute top-0" v-if="state.showUpLayer">
       <el-button link class="absolute right-2 top-2" @click="hiddenUpLayer">

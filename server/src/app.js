@@ -13,7 +13,7 @@ const express = require('express');
 const busboy = require('busboy');
 const proxy = require('express-http-proxy');
 const app = express()
-const port = 8080
+const port = 8001
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const path = require('path')
@@ -61,6 +61,6 @@ app.post('/uploadHeaderImages', (req, res) => {
   return;
 })
 
-app.listen(port, () => {
+app.listen(port,'0.0.0.0', () => {
   console.log(`app listening on port ${port}`)
 })
