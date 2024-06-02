@@ -35,12 +35,17 @@ export default (({ mode }: any) => {
       host: '0.0.0.0',
       port: 8081,
       proxy: {
-        '/api': {
-          target: env.VITE_PROXY,
+        '/expressapi': {
+          target: env.VITE_PROXY_PRODUCTION,
           headers: {},
           changeOrigin: true,
         },
         '/header_imgs': {
+          target: env.VITE_PROXY_PRODUCTION,
+          headers: {},
+          changeOrigin: true,
+        },
+        '/home': {
           target: env.VITE_PROXY_PRODUCTION,
           headers: {},
           changeOrigin: true,
