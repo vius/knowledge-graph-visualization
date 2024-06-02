@@ -25,10 +25,10 @@
       <section class="px-8">
         <section class="flex items-center mb-5">
           <span class="min-w-28">数据状态</span>
-          <p>{{ state.url ? '上传成功' : '等待上传' }}</p>
+          <p>{{ state.url.length ? '上传成功' : '等待上传' }}</p>
         </section>
         <section class="flex justify-end">
-          <el-button type="success" plain :disabled="!state.url" @click="download">下载数据</el-button>
+          <el-button type="success" plain :disabled="!state.url.length" @click="download">下载数据</el-button>
         </section>
       </section>
     </section>
@@ -40,19 +40,21 @@ import { reactive, ref } from 'vue'
 import { Separator } from '@/components/ui/separator'
 import { useToast } from '@/components/ui/toast/use-toast';
 const { toast } = useToast()
-const state = reactive({
+const state: any = reactive({
   actionType: 1,
   type: 1,
   show: true,
-  url: '',
+  url: [],
 })
 const download = () => {
-  const a = document.createElement('a');
-  a.href = state.url;
-  const paths = state.url.split('/')
-  a.download = paths[paths.length - 1]
-  document.body.appendChild(a);
-  a.click();
+  state.url.forEach((url: string) => {
+    const a = document.createElement('a');
+    a.href = url;
+    const paths = url.split('/')
+    a.download = paths[paths.length - 1]
+    document.body.appendChild(a);
+    a.click();
+  });
 }
 const uploadRef = ref<any>()
 const submitUpload = async (type: number) => {
@@ -66,8 +68,11 @@ const handleBeforeUpload = () => {
   }
 }
 const onSuccess = (url: any) => {
+  if (Array.isArray(url)) {
+
+  }
   console.log('response', url)
-  state.url = url
+  state.url = Array.isArray(url) ? url : [url]
   toast({
     title: '上传数据集成功!',
     duration: 2000,
