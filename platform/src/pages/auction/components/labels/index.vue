@@ -1,5 +1,5 @@
 <template>
-  <section class="h-full w-full p-2 overflow-auto pt-10 overflow-hidden flex flex-col">
+  <section class="h-full w-full py-2 pl-2 pr-1 overflow-auto overflow-hidden flex flex-col">
     <section class="flex-1 overflow-auto">
       <table class="w-full text-sm text-left table-auto ">
         <thead class="">

@@ -1,15 +1,15 @@
 {
-  "name": "data-trading-server",
+  "name": "knowledge-graph-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "pm2 start src/app.js --watch --name data-trading-server && pnpm log",
-    "start": "pm2 start src/app.js --name data-trading-server",
-    "stop": "pm2 stop data-trading-server",
-    "delete": "pm2 delete data-trading-server",
-    "log": "pm2 logs data-trading-server"
+    "dev": "pm2 start src/app.js --watch --name knowledge-graph-server && pnpm log",
+    "start": "pm2 start src/app.js --name knowledge-graph-server",
+    "stop": "pm2 stop knowledge-graph-server",
+    "delete": "pm2 delete knowledge-graph-server",
+    "log": "pm2 logs knowledge-graph-server"
   },
   "author": "",
   "license": "ISC",
