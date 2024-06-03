@@ -19,7 +19,7 @@ const clickAction = (type = 1) => {
       title: '数据更新',
       list: [{
         name: '更新实体语句模板',
-        desc: 'MATCH (n:节点类型 {value: "节点的旧值"}) SET n.value = "节点的新值" RETURN n'
+        desc: 'MATCH (n:节点类型 {value: "节点的值"}) SET n.value = "节点的新值" RETURN n'
       }, {
         name: '更新关系语句模板',
         desc: 'MATCH (n1:起始节点类型 {value: "起始节点的值"})-[r:关系类型]->(n2:终止节点类型 {value: "终止节点的值"}) DELETE r CREATE (n1)-[r1:新关系类型]->(n2) RETURN n1, r1, n2'
