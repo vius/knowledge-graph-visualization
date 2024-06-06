@@ -39,13 +39,13 @@ const clickAction = (type = 1) => {
       title: '专用查询',
       list: [{
         name: '地区查询模板',
-        desc: 'MATCH (a) WHERE a.value = "中国台湾" RETURN a'
+        desc: 'MATCH (a:geo_p) WHERE a.value = "中国台湾" RETURN a'
       }, {
         name: '组织机构查询模板',
-        desc: 'MATCH (a) WHERE a.value = "佳福股份有限公司" RETURN a'
+        desc: 'MATCH (a:geo_org) WHERE a.value = "佳福股份有限公司" RETURN a'
       }, {
         name: '行业查询模板',
-        desc: 'MATCH (a) WHERE a.value = "教育" RETURN a'
+        desc: 'MATCH (a:hy) WHERE a.value = "教育" RETURN a'
       }]
     }
   }

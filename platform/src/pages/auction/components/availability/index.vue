@@ -15,7 +15,7 @@ const dataArray = [{
   query: 'MATCH (a)-[r]-(b) WHERE r.tuid <> "prediction" RETURN a, r, b LIMIT 25'
 }, {
   title: '预测信息',
-  query: 'MATCH (a)-[r]-(b) WHERE r.tuid = "prediction" RETURN a, r, b LIMIT 25'
+  query: 'MATCH (a:geo_org)-[r]-(b) WHERE r.tuid = "prediction" RETURN a, r, b LIMIT 25'
 }]
 const dialog: any = reactive({
   title: '',

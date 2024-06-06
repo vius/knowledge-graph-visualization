@@ -38,7 +38,7 @@ const graphSummary = () => {
   const query = `MATCH (g:geo_org) WITH count(g) AS 组织机构
 MATCH (n) WITH 组织机构, count(n) AS 网络空间要素
 MATCH ()-[r]->() WITH 组织机构, 网络空间要素, count(r) AS 跨域关联关系
-MATCH (c:country) WITH 组织机构, 网络空间要素, 跨域关联关系, count(c) AS 地区
+MATCH (c:geo_country) WITH 组织机构, 网络空间要素, 跨域关联关系, count(c) AS 地区
 MATCH (h:hy) RETURN 组织机构, 网络空间要素, 跨域关联关系, 地区, count(h) AS 行业;`
 confirmPostMessage(query)
 }
