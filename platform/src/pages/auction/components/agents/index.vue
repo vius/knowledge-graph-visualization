@@ -1,9 +1,9 @@
 <template>
   <section class="relative" ref="containerRef">
-    <section class="h-full w-full bg-[#111D34] overflow-auto flex justify-around items-center" :class="{ agentHidden: !state.showNeo }">
+    <section class="h-full w-full bg-[#111D34] overflow-auto flex justify-around items-center relative" :class="{ agentHidden: !state.showNeo }">
       <iframe src="http://112.31.213.24:8001/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe>
       <!-- <iframe src="http://localhost:8080/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe> -->
-      <section class="fixed right-3 top-[76px] bg-white p-4 rounded-sm border-[1px] border-blue-300" v-if="state.floatInfo">
+      <section class="absolute left-0 bottom-0 bg-white p-4 rounded-sm border-blue-300 border-2" v-if="state.floatInfo">
         <p class="font-bold text-xl mb-2">{{ state.floatInfo.name }}</p>
         <p class="mb-2">
           <span class="text-opacity-85 text-gray-700 mr-4">组织机构个数</span>
