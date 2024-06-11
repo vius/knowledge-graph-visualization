@@ -3,6 +3,21 @@
     <section class="h-full w-full bg-[#111D34] overflow-auto flex justify-around items-center" :class="{ agentHidden: !state.showNeo }">
       <iframe src="http://112.31.213.24:8001/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe>
       <!-- <iframe src="http://localhost:8080/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe> -->
+      <section class="fixed right-3 top-[76px] bg-white p-4 rounded-sm border-[1px] border-blue-300" v-if="state.floatInfo">
+        <p class="font-bold text-xl mb-2">{{ state.floatInfo.name }}</p>
+        <p class="mb-2">
+          <span class="text-opacity-85 text-gray-700 mr-4">组织机构个数</span>
+          <span class="text-opacity-85 text-gray-700 font-bold">{{ state.floatInfo.jigou }}</span>
+        </p>
+        <p class="mb-2">
+          <span class="text-opacity-85 text-gray-700 mr-4">网络资产个数</span>
+          <span class="text-opacity-85 text-gray-700 font-bold">{{ state.floatInfo.wangluozichan }}</span>
+        </p>
+        <p class="mb-2">
+          <span class="text-opacity-85 text-gray-700 mr-4">关联关系个数</span>
+          <span class="text-opacity-85 text-gray-700 font-bold">{{ state.floatInfo.guanxi }}</span>
+        </p>
+      </section>
     </section>
     <section class="h-full w-full bg-gray-50 absolute top-0" v-if="state.showUpLayer">
       <el-button link class="absolute right-2 top-2" @click="hiddenUpLayer">
@@ -42,7 +57,8 @@ onMounted(() => {
 .agentHidden {
   visibility: hidden;
 }
-#neo-iframe123{
+
+#neo-iframe123 {
   height: calc(100vh + 8px)
 }
 </style>

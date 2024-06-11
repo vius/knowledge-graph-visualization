@@ -32,7 +32,7 @@
             </SelectItem>
           </SelectContent>
         </Select>
-        <Button @click="check(state.type)" class="w-24 h-8 bg-[#008FFF] rounded-[3px]">查询</Button>
+        <Button @click="check(+state.type)" class="w-24 h-8 bg-[#008FFF] rounded-[3px]">查询</Button>
       </section>
     </section>
     <section class="flex justify-between items-center">
@@ -88,7 +88,7 @@ const dialog: any = reactive({
   show: false
 })
 const state: any = reactive({
-  type: 1
+  type: '1'
 })
 
 

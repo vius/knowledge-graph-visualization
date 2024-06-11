@@ -3,13 +3,18 @@ import { reactive } from 'vue'
 export const state: any = reactive({
   showNeo: false,
   showUpLayer: false,
-  type: 1
+  type: 1,
+  floatInfo: null
 })
 
+export const showFloat = (data: any)=>{
+  state.floatInfo = data
+}
 
 export const confirmPostMessage = (query: string) => {
   state.showNeo = true
   state.showUpLayer = false
+  state.floatInfo = null
   const target: any = document.querySelector('#neo-iframe')
   target?.contentWindow.postMessage({
     query,

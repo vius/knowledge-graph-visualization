@@ -35,7 +35,7 @@
       </section>
       <section class="flex items-center my-4">
         <span class="min-w-24">组织机构查询</span>
-        <el-input class="!w-64 grow-0 mr-4" v-model="zhuanYongState.jigou" placeholder="请输入要查询的组织机构"/>
+        <el-input class="!w-64 grow-0 mr-4" v-model="zhuanYongState.jigou" placeholder="请输入要查询的组织机构" />
         <el-button type="primary" @click="zhuanYongConfirm('jigou')">查询</el-button>
       </section>
     </section>
@@ -45,7 +45,7 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import { useToast } from '@/components/ui/toast/use-toast'
-import { confirmPostMessage } from '../../hook'
+import { confirmPostMessage, showFloat } from '../../hook'
 import { cloneDeep } from 'lodash-es';
 const { toast } = useToast()
 const props: any = defineProps({
@@ -114,6 +114,42 @@ const getZhuanyongQuery = (value: string, key: string) => {
   }
   return map[key]
 }
+const floatWindowMap: any = {
+  diqu: {
+    '台湾': {
+      'jigou': 10173,
+      'wangluozichan': 347268,
+      'guanxi': 370209
+    },
+    '北京': {
+      'jigou': 194,
+      'wangluozichan': 24667,
+      'guanxi': 25231
+    },
+    '上海': {
+      'jigou': 97,
+      'wangluozichan': 6967,
+      'guanxi': 7144
+    }
+  },
+  hangye: {
+    '教育': {
+      'jigou': 736,
+      'wangluozichan': 393357,
+      'guanxi': 413154
+    },
+    '政务': {
+      'jigou': 1208,
+      'wangluozichan': 140186,
+      'guanxi': 147303
+    },
+    '企业': {
+      'jigou': 438,
+      'wangluozichan': 3452,
+      'guanxi': 3452
+    }
+  }
+}
 const zhuanYongConfirm = (key: string) => {
   let value = zhuanYongState[key]
   console.log('value', value)
@@ -125,13 +161,18 @@ const zhuanYongConfirm = (key: string) => {
     });
     return
   }
-  if(key==='diqu' && value === '台湾'){
+  const floatInfo: any = floatWindowMap[key] ? floatWindowMap[key][value] : null
+  if (floatInfo) {
+    floatInfo.name = value
+  }
+  if (key === 'diqu' && value === '台湾') {
     value = '臺灣'
   }
   const query = getZhuanyongQuery(value, key)
   console.log('拼接完成的query：', query)
   confirmPostMessage(query)
   close(true)
+  showFloat(floatInfo)
 }
 const close = (refresh = false) => {
   emits('close', refresh)
