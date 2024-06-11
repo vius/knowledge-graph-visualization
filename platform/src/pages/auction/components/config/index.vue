@@ -3,15 +3,41 @@ import { Button } from '@/components/ui/button'
 import CreateDialog from '../create-dialog/index.vue'
 import UploadDialog from '../upload-dialog/index.vue'
 import { reactive, ref } from 'vue'
+
 const clickAction = (type = 1) => {
   const map: any = {
     1: {
       title: '数据写入',
       list: [{
         name: '创建实体语句模板',
-        desc: 'CREATE (n:节点类型 {value: "节点的值"}) RETURN n'
+        desc: 'CREATE (n:节点类型 {value: "节点的值"}) RETURN n',
+        vals: [{
+          name: '节点类型',
+          value: ''
+        }, {
+          name: '结点的值',
+          value: ''
+        }],
+        value: 'CREATE (n:${0} {value: "${1}"}) RETURN n'
       }, {
         name: '创建关系语句模板',
+        vals: [{
+          name: '起始节点类型',
+          value: ''
+        }, {
+          name: '起始节点的值',
+          value: ''
+        }, {
+          name: '终止节点类型',
+          value: ''
+        }, {
+          name: '终止节点的值',
+          value: ''
+        }, {
+          name: '关系类型',
+          value: ''
+        }],
+        value: 'CREATE (n1:${0} {value: "${1}"}), (n2:${2} {value: "${3}"}), (n1)-[r:${4}]->(n2) RETURN n1, r, n2',
         desc: 'CREATE (n1:起始节点类型 {value: "起始节点的值"}), (n2:终止节点类型 {value: "终止节点的值"}), (n1)-[r:关系类型]->(n2) RETURN n1, r, n2'
       }]
     },
@@ -19,20 +45,72 @@ const clickAction = (type = 1) => {
       title: '数据更新',
       list: [{
         name: '更新实体语句模板',
-        desc: 'MATCH (n:节点类型 {value: "节点的值"}) SET n.value = "节点的新值" RETURN n'
+        value: 'MATCH (n:${0} {value: "${1}"}) SET n.value = "${2}" RETURN n',
+        vals: [{
+          name: '节点类型',
+          value: ''
+        }, {
+          name: '节点的值',
+          value: ''
+        }, {
+          name: '节点的新值',
+          value: ''
+        }]
       }, {
         name: '更新关系语句模板',
-        desc: 'MATCH (n1:起始节点类型 {value: "起始节点的值"})-[r:关系类型]->(n2:终止节点类型 {value: "终止节点的值"}) DELETE r CREATE (n1)-[r1:新关系类型]->(n2) RETURN n1, r1, n2'
+        vals: [{
+          name: '起始节点类型',
+          value: ''
+        }, {
+          name: '起始节点的值',
+          value: ''
+        }, {
+          name: '关系类型',
+          value: ''
+        }, {
+          name: '终止节点类型',
+          value: ''
+        }, {
+          name: '终止节点的值',
+          value: ''
+        }, {
+          name: '新关系类型',
+          value: ''
+        }],
+        value: 'MATCH (n1:${0} {value: "${1}"})-[r:${2}]->(n2:${3} {value: "${4}"}) DELETE r CREATE (n1)-[r1:${5}]->(n2) RETURN n1, r1, n2'
       }]
     },
     5: {
       title: '普通查询',
       list: [{
         name: '查询实体语句模板',
-        desc: 'MATCH (n:节点类型 {value: "节点的值"}) RETURN n LIMIT 25'
+        value: 'MATCH (n:${0} {value: "${1}"}) RETURN n LIMIT 25',
+        vals: [{
+          name: '节点类型',
+          value: ''
+        }, {
+          name: '节点的值',
+          value: ''
+        }],
       }, {
         name: '查询关系语句模板',
-        desc: 'MATCH (n1:起始节点类型 {value: "起始节点的值"})-[r:关系类型]->(n2:终止节点类型 {value: "终止节点的值"}) RETURN n1, r, n2 LIMIT 25'
+        value: 'MATCH (n1:${0} {value: "${1}"})-[r:${2}]->(n2:${3} {value: "${4}"}) RETURN n1, r, n2 LIMIT 25',
+        vals: [{
+          name: '起始节点类型',
+          value: ''
+        }, {
+          name: '起始节点的值',
+          value: ''
+        }, {
+          name: '关系类型',
+          value: ''
+        }, {
+          name: '终止节点类型',
+          value: ''
+        }, {
+          name: '终止节点的值',
+          value: ''
+        }],
       }]
     },
     6: {
@@ -49,9 +127,10 @@ const clickAction = (type = 1) => {
       }]
     }
   }
-  const { title, list = [] } = map[type]
+  const { title, list = [], query = {} } = map[type]
   data.title = title
   data.list = list
+  data.query = query
   show.value = true
 }
 const data: any = reactive({
@@ -85,7 +164,7 @@ const uploadAction = (type: number) => {
     </section>
   </section>
   <CreateDialog v-if="show" :list="data.list" :title="data.title" @close="show = false" />
-  <UploadDialog v-if="uploadDialog.show" :type="uploadDialog.type" :title="uploadDialog.title" @close="uploadDialog.show = false"/>
+  <UploadDialog v-if="uploadDialog.show" :type="uploadDialog.type" :title="uploadDialog.title" @close="uploadDialog.show = false" />
 </template>
 
 <style lang="less">

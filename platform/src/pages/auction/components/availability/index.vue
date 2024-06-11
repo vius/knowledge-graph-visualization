@@ -10,6 +10,8 @@
 import { Button } from '@/components/ui/button'
 import { reactive } from 'vue';
 import SearchDialog from '../search-dialog/index.vue'
+import { confirmPostMessage } from '../../hook'
+
 const dataArray = [{
   title: '历史信息',
   query: 'MATCH (a)-[r]-(b) WHERE r.tuid <> "prediction" RETURN a, r, b LIMIT 25'
@@ -24,9 +26,8 @@ const dialog: any = reactive({
 })
 
 const check = (index = 1) => {
-  dialog.show = true
   const data = dataArray[index - 1]
-  dialog.title = data.title
-  dialog.query = data.query
+  const query = data.query
+  confirmPostMessage(query)
 }
 </script>

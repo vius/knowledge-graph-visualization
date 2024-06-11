@@ -33,7 +33,7 @@ export default (({ mode }: any) => {
     server: {
       open: false,
       host: '0.0.0.0',
-      port: 8081,
+      port: 8080,
       proxy: {
         '/expressapi': {
           target: env.VITE_PROXY_PRODUCTION,
