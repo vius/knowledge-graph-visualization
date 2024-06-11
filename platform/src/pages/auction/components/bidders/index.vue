@@ -28,7 +28,7 @@
               文档和代码
             </SelectItem>
             <SelectItem value="3" class="bg-transparent rounded-[3px] border-0 text-base">
-              邮箱和社交帐号
+              邮箱和社交账号
             </SelectItem>
           </SelectContent>
         </Select>
