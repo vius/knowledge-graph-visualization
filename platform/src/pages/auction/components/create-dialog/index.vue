@@ -110,7 +110,7 @@ const getZhuanyongQuery = (value: string, key: string) => {
   const map: any = {
     diqu: `MATCH (a:geo_org) WHERE a.value CONTAINS "${value}" RETURN a`,
     hangye: `MATCH (a:hy)-[r]-(b:geo_org) WHERE a.value="${value}" RETURN a,r,b LIMIT 50`,
-    jigou: `MATCH (a:geo_org) WHERE a.value = "${value}" RETURN a`
+    jigou: `MATCH (a:geo_org) WHERE a.value CONTAINS "${value}" RETURN a`
   }
   return map[key]
 }
