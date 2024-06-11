@@ -9,18 +9,18 @@ const clickAction = (type = 1) => {
     1: {
       title: '数据写入',
       list: [{
-        name: '创建实体语句模板',
+        name: '创建实体',
         desc: 'CREATE (n:节点类型 {value: "节点的值"}) RETURN n',
         vals: [{
           name: '节点类型',
           value: ''
         }, {
-          name: '结点的值',
+          name: '节点的值',
           value: ''
         }],
         value: 'CREATE (n:${0} {value: "${1}"}) RETURN n'
       }, {
-        name: '创建关系语句模板',
+        name: '创建关系',
         vals: [{
           name: '起始节点类型',
           value: ''
@@ -44,7 +44,7 @@ const clickAction = (type = 1) => {
     2: {
       title: '数据更新',
       list: [{
-        name: '更新实体语句模板',
+        name: '更新实体',
         value: 'MATCH (n:${0} {value: "${1}"}) SET n.value = "${2}" RETURN n',
         vals: [{
           name: '节点类型',
@@ -57,7 +57,7 @@ const clickAction = (type = 1) => {
           value: ''
         }]
       }, {
-        name: '更新关系语句模板',
+        name: '更新关系',
         vals: [{
           name: '起始节点类型',
           value: ''
@@ -83,7 +83,7 @@ const clickAction = (type = 1) => {
     5: {
       title: '普通查询',
       list: [{
-        name: '查询实体语句模板',
+        name: '查询实体',
         value: 'MATCH (n:${0} {value: "${1}"}) RETURN n LIMIT 25',
         vals: [{
           name: '节点类型',
@@ -93,7 +93,7 @@ const clickAction = (type = 1) => {
           value: ''
         }],
       }, {
-        name: '查询关系语句模板',
+        name: '查询关系',
         value: 'MATCH (n1:${0} {value: "${1}"})-[r:${2}]->(n2:${3} {value: "${4}"}) RETURN n1, r, n2 LIMIT 25',
         vals: [{
           name: '起始节点类型',

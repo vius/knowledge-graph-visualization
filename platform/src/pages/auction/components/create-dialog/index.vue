@@ -5,7 +5,7 @@
         <section class="m-4">
           <section class="mb-6">
             <p class="font-bold text-lg">{{ tab.name }}</p>
-            <p class="text-sm mt-2 text-opacity-60 text-black">{{ getQueryDesc(tab) }}</p>
+            <!-- <p class="text-sm mt-2 text-opacity-60 text-black">{{ getQueryDesc(tab) }}</p> -->
           </section>
           <section class="flex flex-row gap-4 flex-wrap">
             <el-input v-for="item in tab.vals" v-model="item.value" :placeholder="'请输入' + item.name" size="large" class="!w-40"></el-input>
@@ -79,16 +79,16 @@ const getQuery = (tab: any) => {
   });
   return result
 }
-const getQueryDesc = (tab: any) => {
-  const str = tab.value
-  const vals = tab.vals
-  let regex = /\${(\w+)}/g;
-  let result = str.replace(regex, (_match: any, p1: any) => {
-    const index = +p1
-    return vals[index].name
-  });
-  return result
-}
+// const getQueryDesc = (tab: any) => {
+//   const str = tab.value
+//   const vals = tab.vals
+//   let regex = /\${(\w+)}/g;
+//   let result = str.replace(regex, (_match: any, p1: any) => {
+//     const index = +p1
+//     return vals[index].name
+//   });
+//   return result
+// }
 const confirm = async () => {
   const { activeName } = state
   const tab = state.list[activeName]
