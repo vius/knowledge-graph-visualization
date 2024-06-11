@@ -3,7 +3,7 @@
     <section class="flex justify-between items-center">
       <span class="mr-4 min-w-10 text-sm">按类型</span>
       <section class="flex flex-1 justify-between items-center gap-2 px-2">
-        <Tabs v-model="state.type">
+        <!-- <Tabs v-model="state.type">
           <TabsList class="grid tab-list w-full grid-cols-3 h-[28px] p-0 bg-[#11294A] rounded-[3px] border-0 hover:bg-[#11294A] hover:text-[#D0DEEE]">
             <TabsTrigger :value="1" class="h-[28px] rounded-[3px] border-0 text-[13px]">
               设备信息
@@ -15,7 +15,23 @@
               邮箱
             </TabsTrigger>
           </TabsList>
-        </Tabs>
+        </Tabs> -->
+        <Select v-model="state.type">
+          <SelectTrigger class="w-[220px] h-[32px] border-0 rounded-sm bg-[#11294A] text-[#D0DEEE]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent class="w-[220px] border-0">
+            <SelectItem value="1" class="bg-transparent rounded-[3px] border-0 text-base">
+              信息系统和设备
+            </SelectItem>
+            <SelectItem value="2" class="bg-transparent rounded-[3px] border-0 text-base">
+              文档和代码
+            </SelectItem>
+            <SelectItem value="3" class="bg-transparent rounded-[3px] border-0 text-base">
+              邮箱和社交帐号
+            </SelectItem>
+          </SelectContent>
+        </Select>
         <Button @click="check(state.type)" class="w-24 h-8 bg-[#008FFF] rounded-[3px]">查询</Button>
       </section>
     </section>
@@ -36,7 +52,13 @@ import { Button } from '@/components/ui/button'
 import { reactive } from 'vue';
 import SearchDialog from '../search-dialog/index.vue'
 import { confirmPostMessage } from '../../hook'
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 const dataArray = [{
   title: '资产类要素',
   query: 'MATCH (a:device)-[r]-(b:os) RETURN a, r, b limit 25'
