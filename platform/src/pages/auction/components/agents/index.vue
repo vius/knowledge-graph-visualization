@@ -1,7 +1,7 @@
 <template>
   <section class="relative" ref="containerRef">
     <section class="h-full w-full bg-[#111D34] overflow-auto flex justify-around items-center relative" :class="{ agentHidden: !state.showNeo }">
-      <iframe src="http://112.31.213.24:8001/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe>
+      <iframe src="http://localhost:8001/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe>
       <!-- <iframe src="http://localhost:8080/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe> -->
       <section class="absolute left-0 bottom-0 bg-white p-4 rounded-sm border-blue-300 border-2" v-if="state.floatInfo">
         <p class="font-bold text-xl mb-2">{{ state.floatInfo.name }}</p>
@@ -27,7 +27,7 @@
         </section>
       </el-button>
       <Labels v-if="state.type === 1"></Labels>
-      <iframe v-show="state.type === 2" src="http://112.31.213.24:5601/" frameborder="0" width="100%" id="neo-iframe123" ref="esRef"></iframe>
+      <iframe v-show="state.type === 2" src="http://localhost:5601/" frameborder="0" width="100%" id="neo-iframe123" ref="esRef"></iframe>
     </section>
   </section>
 </template>

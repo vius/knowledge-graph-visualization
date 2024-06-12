@@ -10,7 +10,7 @@ const path = require('path')
 
 app.use(cookieParser())
 app.use(bodyParser.json())
-app.get('/browser/*', proxy('http://112.31.213.24:7474', {
+app.get('/browser/*', proxy('http://localhost:7474', {
   // 自定义响应头
   userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
     userRes.setHeader('Content-Security-Policy', "frame-ancestors 'self' http://localhost:8080");
@@ -61,11 +61,11 @@ app.post('/expressapi/dealdata', (req, res) => {
         2: 'reconstruct'
       }
       const after = actionMao[actionType]
-      // const origin = `http://112.31.213.24`
+      // const origin = `http://localhost`
       const origin = `http://localhost`
       const url = `${origin}:8000/${pre}_${after}?file_path=${saveTo}`
       console.log('请求url', url)
-      // const url = `http://112.31.213.24:8000/wlzc_process?file_path=/home/inspur/CyberKG/test/wlzc.json`
+      // const url = `http://localhost:8000/wlzc_process?file_path=/home/inspur/CyberKG/test/wlzc.json`
       const response = await fetch(url)
       const data = await response.text()
       res.end(data);
