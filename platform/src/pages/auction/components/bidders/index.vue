@@ -3,19 +3,6 @@
     <section class="flex justify-between items-center">
       <span class="mr-4 min-w-10 text-sm">按类型</span>
       <section class="flex flex-1 justify-between items-center gap-2 px-2">
-        <!-- <Tabs v-model="state.type">
-          <TabsList class="grid tab-list w-full grid-cols-3 h-[28px] p-0 bg-[#11294A] rounded-[3px] border-0 hover:bg-[#11294A] hover:text-[#D0DEEE]">
-            <TabsTrigger :value="1" class="h-[28px] rounded-[3px] border-0 text-[13px]">
-              设备信息
-            </TabsTrigger>
-            <TabsTrigger :value="2" class="h-[28px] bg-transparent rounded-[3px] border-0 text-[13px]">
-              文档
-            </TabsTrigger>
-            <TabsTrigger :value="3" class="h-[28px] bg-transparent rounded-[3px] border-0 text-[13px]">
-              邮箱
-            </TabsTrigger>
-          </TabsList>
-        </Tabs> -->
         <Select v-model="state.type">
           <SelectTrigger class="w-[220px] h-[32px] border-0 rounded-sm bg-[#11294A] text-[#D0DEEE]">
             <SelectValue />

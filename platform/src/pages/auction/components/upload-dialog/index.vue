@@ -10,15 +10,25 @@
         </section>
         <section class="flex items-center mb-6">
           <span class="min-w-28">选择数据类型</span>
-          <el-radio-group v-model="state.type">
+          <el-radio-group v-model="state.type" v-if="props.type === 1">
             <el-radio-button :value="1">网络资产</el-radio-button>
             <el-radio-button :value="2">开源情报</el-radio-button>
             <el-radio-button :value="3">社工情报</el-radio-button>
           </el-radio-group>
+          <el-radio-group v-model="state.type" v-else>
+            <el-radio-button :value="2">半结构化</el-radio-button>
+            <el-radio-button :value="1">网络资产</el-radio-button>
+            <el-radio-button :value="3">社工数据</el-radio-button>
+          </el-radio-group>
         </section>
         <section class="flex justify-end">
-          <el-button type="success" plain @click="submitUpload(1)">开始处理</el-button>
-          <el-button type="success" plain v-if="props.type === 1" @click="submitUpload(2)">开始重构</el-button>
+          <template v-if="props.type === 1">
+            <el-button type="success" plain @click="submitUpload(1)">开始处理</el-button>
+            <el-button type="success" plain @click="submitUpload(2)">开始重构</el-button>
+          </template>
+          <template v-else>
+            <el-button type="success" plain @click="submitUpload(3)">开始处理</el-button>
+          </template>
         </section>
       </section>
       <Separator class="my-6" />
@@ -40,9 +50,14 @@ import { reactive, ref } from 'vue'
 import { Separator } from '@/components/ui/separator'
 import { useToast } from '@/components/ui/toast/use-toast';
 const { toast } = useToast()
+const emits = defineEmits(['close'])
+const props: any = defineProps({
+  title: String,
+  type: Number
+})
 const state: any = reactive({
   actionType: 1,
-  type: 1,
+  type: props.type,
   show: true,
   url: [],
 })
@@ -90,11 +105,6 @@ const onError = (error: Error) => {
     })
   }
 }
-const emits = defineEmits(['close'])
-const props: any = defineProps({
-  title: String,
-  type: Number
-})
 
 const close = (refresh = false) => {
   emits('close', refresh)

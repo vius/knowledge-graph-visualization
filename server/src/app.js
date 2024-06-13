@@ -58,14 +58,13 @@ app.post('/expressapi/dealdata', (req, res) => {
       let pre = preMap[type]
       const actionMao = {
         1: 'process',
-        2: 'reconstruct'
+        2: 'reconstruct',
+        3: 'extract'
       }
       const after = actionMao[actionType]
-      // const origin = `http://localhost`
       const origin = `http://localhost`
       const url = `${origin}:8000/${pre}_${after}?file_path=${saveTo}`
       console.log('请求url', url)
-      // const url = `http://localhost:8000/wlzc_process?file_path=/home/inspur/CyberKG/test/wlzc.json`
       const response = await fetch(url)
       const data = await response.text()
       res.end(data);
