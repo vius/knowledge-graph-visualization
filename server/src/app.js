@@ -26,6 +26,15 @@ app.use((req, res, next) => {
   }
   next();
 });
+// 路由请求超时的中间件
+app.use(function (req, res, next) {
+  // 这里必须是Response响应的定时器【120秒】
+  res.setTimeout(120 * 1000, function () {
+    console.log("Request has timed out.");
+    return res.status(408).send("请求超时")
+  });
+  next();
+});
 const downloadDir = path.resolve(__dirname, '../../../')
 console.log('downloadDir', downloadDir)
 app.get('/test/*', express.static(downloadDir))
@@ -47,7 +56,7 @@ app.post('/expressapi/dealdata', (req, res) => {
       "utf8"
     );
     let dir = path.join(__dirname, `../../../file`)
-    if(isZhiShiTiQu){
+    if (isZhiShiTiQu) {
       const { ext } = path.parse(fileName);
       fileName = 'input' + ext
       dir = path.join(__dirname, `../../../banjiegouhua`)
