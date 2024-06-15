@@ -35,23 +35,9 @@
 import { state, hiddenUpLayer } from '../../hook'
 import { Cross1Icon } from '@radix-icons/vue'
 import Labels from '../labels/index.vue'
-import { ref, onMounted, watch } from 'vue'
+import { ref } from 'vue'
 const containerRef = ref<any>()
 const esRef = ref<any>()
-watch(() => state.type, (val) => {
-  if (val === 2) {
-    setTimeout(() => {
-      const node: any = document.querySelector('#neo-iframe123')
-      if (node) {
-        node.style.height = containerRef.value.height + 96 + 'px';
-        node.style.position = 'relative'
-        node.style.top = '-96px'
-      }
-    }, 100);
-  }
-})
-onMounted(() => {
-})
 </script>
 <style>
 .agentHidden {
@@ -59,6 +45,8 @@ onMounted(() => {
 }
 
 #neo-iframe123 {
-  height: calc(100vh + 8px)
+  height: calc(100vh + 8px);
+  position: relative;
+  top: -96px;
 }
 </style>
