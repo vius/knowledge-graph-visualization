@@ -58,7 +58,7 @@ app.post('/expressapi/dealdata', (req, res) => {
     let dir = path.join(__dirname, `../../../file`)
     if (isZhiShiTiQu) {
       const { ext } = path.parse(fileName);
-      fileName = 'input' + ext
+      fileName = 'bjgh' + ext
       dir = path.join(__dirname, `../../../banjiegouhua`)
     }
     if (!fs.existsSync(dir)) {
