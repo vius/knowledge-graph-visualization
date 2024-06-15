@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "pm2 start src/app.js --watch --name knowledge-graph-server && pnpm log",
-    "start": "pnpm i && pnpm stop && pm2 start src/app.js --name knowledge-graph-server",
+    "start": "pm2 start src/app.js --name knowledge-graph-server",
     "stop": "pm2 stop knowledge-graph-server",
     "delete": "pm2 delete knowledge-graph-server",
     "log": "pm2 logs knowledge-graph-server"

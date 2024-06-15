@@ -4,7 +4,7 @@
       <section class="px-8">
         <section class="flex mb-5">
           <span class="min-w-28 leading-8">上传待处理数据</span>
-          <el-upload ref="uploadRef" :data="handleBeforeUpload" class="flex-1" :auto-upload="false" action="/expressapi/dealdata" accept=".json,.csv" :limit="1" :on-success="onSuccess" :on-error="onError">
+          <el-upload ref="uploadRef" v-model:file-list="state.fileList" :data="handleBeforeUpload" class="flex-1" :auto-upload="false" action="/expressapi/dealdata" accept=".json,.csv" :limit="1" :on-success="onSuccess" :on-error="onError">
             <el-button type="primary">选择文件</el-button>
           </el-upload>
         </section>
@@ -60,6 +60,7 @@ const state: any = reactive({
   type: props.type,
   show: true,
   url: [],
+  fileList: []
 })
 const download = () => {
   state.url.forEach((url: string) => {
@@ -73,6 +74,15 @@ const download = () => {
 }
 const uploadRef = ref<any>()
 const submitUpload = async (type: number) => {
+  console.log('fileList', state.fileList)
+  if (!state.fileList.length) {
+    toast({
+      title: '请先选择文件!',
+      duration: 2000,
+      variant: 'destructive',
+    })
+    return
+  }
   state.actionType = type
   uploadRef.value!.submit()
 }

@@ -39,17 +39,26 @@ app.post('/expressapi/dealdata', (req, res) => {
     params[name] = val;
   });
   bb.on('file', (name, file, info) => {
-    const fileName = Buffer.from(info.filename, "latin1").toString(
+    const { type, actionType } = params
+    console.log('actionType', actionType, type)
+    const isZhiShiTiQu = +actionType === 3 && +type === 2
+    console.log('isZhiShiTiQu', isZhiShiTiQu)
+    let fileName = Buffer.from(info.filename, "latin1").toString(
       "utf8"
     );
-    const dir = path.join(__dirname, `../../../file`)
+    let dir = path.join(__dirname, `../../../file`)
+    if(isZhiShiTiQu){
+      const { ext } = path.parse(fileName);
+      fileName = 'input' + ext
+      dir = path.join(__dirname, `../../../banjiegouhua`)
+    }
     if (!fs.existsSync(dir)) {
+      console.log('创建文件夹')
       fs.mkdirSync(dir);
     }
     const saveTo = path.join(dir, fileName);
     file.pipe(fs.createWriteStream(saveTo));
     file.on('end', async () => {
-      const { type, actionType } = params
       const preMap = {
         1: 'wlzc',
         2: 'kyqb',
@@ -63,7 +72,9 @@ app.post('/expressapi/dealdata', (req, res) => {
       }
       const after = actionMao[actionType]
       const origin = `http://localhost`
-      const url = `${origin}:8000/${pre}_${after}?file_path=${saveTo}`
+      const file_path = isZhiShiTiQu ? dir : saveTo
+      console.log('file_path ====>>>>> ', file_path)
+      const url = `${origin}:8000/${pre}_${after}?file_path=${file_path}`
       console.log('请求url', url)
       const response = await fetch(url)
       const data = await response.text()
