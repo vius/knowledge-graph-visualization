@@ -27,7 +27,7 @@
         </section>
       </el-button>
       <Labels v-if="state.type === 1"></Labels>
-      <iframe v-show="state.type === 2" src="http://localhost:5601/" frameborder="0" width="100%" id="neo-iframe123" ref="esRef"></iframe>
+      <iframe v-show="state.type === 2" src="http://localhost:5601/" frameborder="0" width="100%" height="100%" id="neo-iframe123" ref="esRef"></iframe>
     </section>
   </section>
 </template>
@@ -45,8 +45,9 @@ const esRef = ref<any>()
 }
 
 #neo-iframe123 {
-  height: calc(100vh + 8px);
-  position: relative;
-  top: -96px;
+  /* height: calc(100vh + 8px); */
+  height: 100%;
+  /* position: relative; */
+  /* top: -96px; */
 }
 </style>
