@@ -1,8 +1,7 @@
 <template>
   <section class="relative" ref="containerRef">
     <section class="h-full w-full bg-[#111D34] overflow-auto flex justify-around items-center relative" :class="{ agentHidden: !state.showNeo }">
-      <iframe src="http://localhost:8001/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe>
-      <!-- <iframe src="http://localhost:8080/browser/" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe> -->
+      <iframe :src="getUrl(':8001/browser/')" frameborder="0" width="100%" height="100%" id="neo-iframe"></iframe>
       <section class="absolute left-0 bottom-0 bg-white p-4 rounded-sm border-blue-300 border-2" v-if="state.floatInfo">
         <p class="font-bold text-xl mb-2">{{ state.floatInfo.name }}</p>
         <p class="mb-2">
@@ -27,7 +26,7 @@
         </section>
       </el-button>
       <Labels v-if="state.type === 1"></Labels>
-      <iframe v-show="state.type === 2" src="http://localhost:5601/" frameborder="0" width="100%" height="100%" id="neo-iframe123" ref="esRef"></iframe>
+      <iframe v-show="state.type === 2" :src="getUrl(':5601/')" sr1c11="http://localhost:5601/" frameborder="0" width="100%" height="100%" id="neo-iframe123" ref="esRef"></iframe>
     </section>
   </section>
 </template>
@@ -38,6 +37,13 @@ import Labels from '../labels/index.vue'
 import { ref } from 'vue'
 const containerRef = ref<any>()
 const esRef = ref<any>()
+const { protocol, hostname } = location
+const currentOrign = `${protocol}//${hostname}`
+const getUrl = (path: string) => {
+  const res = `${currentOrign}${path}`
+  console.log('外部平台url地址：',res)
+  return res
+}
 </script>
 <style>
 .agentHidden {
